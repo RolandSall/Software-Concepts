@@ -2,11 +2,11 @@
 
 
 
-The diagram below illustrated a microservice architecture. Normally in such architecture the clients communicate with a gateway service using HTTP/s requests. 
+The diagram below illustrates a microservice architecture. Normally in such architecture the clients communicate with a gateway service using HTTP/s requests. 
 
 * The `Gateway-Service` main role is to re-route the request to the correct service.
 * The `Config-Service` is used to store metadata and configuration for each microservice that are fetched on runtime.
-* The `Discovery-Service` is used to locate the different services location. The latter is achieved by having a registration from each service with the `Discovery-Service` once launched.
+* The `Discovery-Service` is used to locate the different services location. The latter is achieved once a service register with the `Discovery-Service` once launched.
 
 ![microservie-architecture.drawio](./images/microservie-architecture.drawio.png)
 
@@ -38,9 +38,9 @@ These techniques are frequently paired together. Refer to this [thread](https://
 
 > The fundamental idea of Event Sourcing is that of ensuring every change to the state of an application is captured in an event object, and that these event objects are themselves stored in the sequence they were applied for the same lifetime as the application state itself. ~ [Martin Fowler](https://martinfowler.com/)
 
-​	Such techniques has the following advantages:
+​	Such techniques have the following advantages:
 
-* Easy analyze and debug problems: Since you have everything recorded, you can replicate problems that occurs.
+* Easy to analyze and debug problems: Since you have everything recorded, you can replicate problems that occur.
 * You can always check the state of your database at any given point by replaying the series of occurred events.
 * Performance: Asynchronous communication with the bus
 
@@ -52,7 +52,7 @@ A command is an external solicitation on the system. It is normally auto-descrip
 
 ![event-sourcing(1)](./images/event-sourcing(1).png)
 
-The application will implement a number of handlers that will get triggered based on the command that the application receive. This handler will perform a certain logic than this event will be persisted in a dedicated store. An event-sourcing handler will then be triggered to change the state of the application. (Check the source code for a hands-on example)
+The application will implement a number of handlers that will get triggered based on the command that the application receives. This handler will perform a certain logic then this event will be persisted in a dedicated store. An event-sourcing handler will then be triggered to change the state of the application. (Check the source code for a hands-on example)
 
 
 
