@@ -1,19 +1,19 @@
 package com.rolandsall24.cqrseventsourcingaxon.model;
 
 import lombok.Data;
-import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.UUID;
 
 @Data
 @Entity
 public class Product {
 
-    @GeneratedValue
+
     @Id
-    private int productId;
+    private UUID productId;
     private String name;
     private long serialNumber;
 }
