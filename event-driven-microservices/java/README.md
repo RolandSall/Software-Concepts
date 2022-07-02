@@ -70,7 +70,7 @@ Queries are the requests that aims to read data. `Select` requests which aims to
 
 *CQRS with Event Sourcing*
 
-![CQRS with event sourcing](./images/CQRS with event sourcing.png)
+![CQRS with event sourcing](./images/CQRS-with-event-sourcing.png)
 
 Advantage of CQRS:
 
