@@ -1,43 +1,29 @@
-package com.rolandsall24.cqrseventsourcingaxon.product.commands;
+package com.rolandsall24.cqrseventsourcingaxon.commands.product.aggregate;
 
-import com.rolandsall24.cqrseventsourcingaxon.product.commands.enums.ProductStatus;
-import com.rolandsall24.cqrseventsourcingaxon.product.commands.events.ProductCreatedEvent;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.rolandsall24.cqrseventsourcingaxon.commands.product.commands.CreateProductCommand;
+import com.rolandsall24.cqrseventsourcingaxon.commands.product.commands.UpdateProductStatusCommand;
+import com.rolandsall24.cqrseventsourcingaxon.commands.product.enums.ProductStatus;
+import com.rolandsall24.cqrseventsourcingaxon.commands.product.events.ProductCreatedEvent;
+import com.rolandsall24.cqrseventsourcingaxon.commands.product.events.UpdateProductStatusEvent;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.UUID;
 
-
-@Getter
-public class CreateProductCommand {
-
-    @TargetAggregateIdentifier
-    private UUID productId;
-    private String name;
-    private long serialNumber;
-
-    public CreateProductCommand(String name, long serialNumber) {
-        this.name = name;
-        this.serialNumber = serialNumber;
-    }
-}
-
 @Aggregate
 @NoArgsConstructor
-class ProductAggregate{
+public class ProductAggregate {
 
     @AggregateIdentifier
     private UUID productId;
     private String name;
     private long serialNumber;
     private ProductStatus productStatus;
+
 
     @CommandHandler
     public ProductAggregate(CreateProductCommand createProductCommand) {
@@ -47,7 +33,8 @@ class ProductAggregate{
         AggregateLifecycle.apply(new ProductCreatedEvent(
                 UUID.randomUUID(),
                 createProductCommand.getName(),
-                createProductCommand.getSerialNumber()
+                createProductCommand.getSerialNumber(),
+                productStatus = ProductStatus.CREATED
 
         ));
     }
@@ -60,8 +47,20 @@ class ProductAggregate{
         this.productStatus = ProductStatus.CREATED;
 
     }
+
+    @CommandHandler
+    public void on(UpdateProductStatusCommand updateProductStatusCommand){
+
+        AggregateLifecycle.apply(new UpdateProductStatusEvent(
+                updateProductStatusCommand.getId(),
+                updateProductStatusCommand.getStatus()
+        ));
+    }
+
+    @EventSourcingHandler
+    public void on(UpdateProductStatusEvent event){
+        this.productId = event.getProductId();
+        this.productStatus = event.getStatus();
+    }
+
 }
-
-
-
-
