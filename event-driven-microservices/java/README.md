@@ -8,7 +8,7 @@ The diagram below illustrated a microservice architecture. Normally in such arch
 * The `Config-Service` is used to store metadata and configuration for each microservice that are fetched on runtime.
 * The `Discovery-Service` is used to locate the different services location. The latter is achieved by having a registration from each service with the `Discovery-Service` once launched.
 
-![microservie-architecture.drawio](.\images\microservie-architecture.drawio.png)
+![microservie-architecture.drawio](./images/microservie-architecture.drawio.png)
 
 ## Types of Communication
 
@@ -20,11 +20,11 @@ Microservices can communicate in two ways: Synchronous Communication using REST 
 
 Another question is very important to raise: How to synchronize multiple database instances? Such problems can be solved using brokers (RabbitMQ, Kafka)
 
-![synchronous-communication.drawio](.\images\synchronous-communication.drawio.png)
+![synchronous-communication.drawio](./images/synchronous-communication.drawio.png)
 
 #### Asynchronous Communication
 
 In this solution, an event bus is used. The services will subscribe to this bus and publish any new events that occurs. On each modification all subscribed services will catch any new modification using the event handlers. Hence, this approach will guarantee data consistency and synchronized system.
 
-![synchronous-communication.drawio](.\images\asynchronous-communication.drawio.png)
+![synchronous-communication.drawio](./images/asynchronous-communication.drawio.png)
 
