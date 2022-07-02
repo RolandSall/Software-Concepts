@@ -6,9 +6,13 @@ import lombok.Getter;
 
 import java.util.UUID;
 
-@AllArgsConstructor
 @Getter
-public class UpdateProductStatusEvent {
-    private UUID productId;
+public class UpdateProductStatusEvent extends ProductBaseEvent<UUID>{
+
     private ProductStatus status;
+
+    public UpdateProductStatusEvent(UUID id, ProductStatus status) {
+        super(id);
+        this.status = status;
+    }
 }

@@ -41,7 +41,7 @@ public class ProductAggregate {
 
     @EventSourcingHandler
     public void on(ProductCreatedEvent event){
-        this.productId = event.getProductId();
+        this.productId = event.getId();
         this.serialNumber = event.getSerialNumber();
         this.name = event.getName();
         this.productStatus = ProductStatus.CREATED;
@@ -59,7 +59,7 @@ public class ProductAggregate {
 
     @EventSourcingHandler
     public void on(UpdateProductStatusEvent event){
-        this.productId = event.getProductId();
+        this.productId = event.getId();
         this.productStatus = event.getStatus();
     }
 
