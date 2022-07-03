@@ -13,7 +13,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
-
 builder.Services.AddTransient<IProductRepo, DummyProductRepo>();
 
 var app = builder.Build();

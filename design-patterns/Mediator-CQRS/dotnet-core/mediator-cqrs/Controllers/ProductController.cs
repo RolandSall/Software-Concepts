@@ -1,5 +1,8 @@
-﻿using mediator_cqrs.entities;
+﻿using System.Net;
+using mediator_cqrs.entities;
+using mediator_cqrs.Queries.Product;
 using mediator_cqrs.Repository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 
@@ -11,18 +14,44 @@ namespace mediator_cqrs.Controllers;
 public class ProductController: ControllerBase
 {
     private readonly ILogger<ProductController> _logger;
-    private readonly IProductRepo _productRepo;
+    private readonly IMediator _mediator;
 
-    public ProductController(ILogger<ProductController> logger, IProductRepo productRepo)
+    public ProductController(ILogger<ProductController> logger, IMediator mediator)
     {
         _logger = logger;
-        _productRepo = productRepo;
+
+        _mediator = mediator;
     }
     
     [HttpGet(Name = "GetProductsList")]
-    public async Task<ActionResult> Get()
+    public async Task<ActionResult> GetAllProducts()
     {
-        return Ok(_productRepo.GetAllProducts());
+        try
+        {
+            return Ok(await _mediator.Send(new GetAllOrdersQuery()));
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(Convert.ToInt32(HttpStatusCode.InternalServerError), e.Message);
+        }
+    }
+    
+    
+    [HttpGet("{productId}")]
+    public async Task<ActionResult> GetProductById(int productId)
+    {
+        try
+        {
+            return Ok(await _mediator.Send(new GetProductById(productId)));
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(Convert.ToInt32(HttpStatusCode.InternalServerError), e.Message);
+        }
     }
 
     

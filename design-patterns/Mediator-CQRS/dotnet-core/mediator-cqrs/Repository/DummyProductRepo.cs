@@ -16,7 +16,7 @@ public class DummyProductRepo: IProductRepo
      }
 
 
-     public IEnumerable<Product> GetAllProducts()
+     public List<Product> GetAllProducts()
     {
 
         return _list;
