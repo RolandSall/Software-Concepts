@@ -1,4 +1,6 @@
 using System.Reflection;
+using FluentValidation;
+using mediator_cqrs.Behaviors;
 using mediator_cqrs.Repository;
 using MediatR;
 
@@ -12,6 +14,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
 
 builder.Services.AddSingleton<IProductRepo, DummyProductRepo>();
 
