@@ -1,4 +1,6 @@
-﻿using mediator_cqrs.Repository;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using mediator_cqrs.Repository;
 using MediatR;
 
 namespace mediator_cqrs.Queries.Product;

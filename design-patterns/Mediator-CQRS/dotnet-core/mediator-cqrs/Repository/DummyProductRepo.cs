@@ -21,4 +21,10 @@ public class DummyProductRepo: IProductRepo
 
         return _list;
     }
+
+     public string CreateProduct(Product product)
+     {
+         _list.Add(product);
+         return "Created";
+     }
 }

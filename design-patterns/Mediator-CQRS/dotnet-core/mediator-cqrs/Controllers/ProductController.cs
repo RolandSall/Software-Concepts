@@ -1,10 +1,8 @@
 ﻿using System.Net;
-using mediator_cqrs.entities;
+using mediator_cqrs.Commands.Product;
 using mediator_cqrs.Queries.Product;
-using mediator_cqrs.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 
 namespace mediator_cqrs.Controllers;
 
@@ -45,6 +43,22 @@ public class ProductController: ControllerBase
         try
         {
             return Ok(await _mediator.Send(new GetProductById(productId)));
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(Convert.ToInt32(HttpStatusCode.InternalServerError), e.Message);
+        }
+    }
+    
+    
+    [HttpPost()]
+    public async Task<ActionResult> CreateProduct([FromBody] CreateProductRequest request)
+    {
+        try
+        {
+            return Ok(await _mediator.Send(new CreateProductCommand(request.Name, request.SerialNumber)));
 
         }
         catch (Exception e)
