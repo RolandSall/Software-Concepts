@@ -88,6 +88,14 @@ An aggregate is a result of multiple related entitles (value objects might be in
 
 External references are restricted to one member of the aggregated named the `Root`. The root is responsible for controlling access to all members and rules within the aggregate boundaries.
 
+## Events
+
+A notification that illustrate relevant actions that occurred inside of a domain.
+
+## Bounding Context
+
+A bounding context represents a a set of functional features within a domain.
+
 
 
 
