@@ -2,24 +2,20 @@
 
 In this README.md file I will discuss the concepts of CQRS. 
 
-For application with different programming languages
-
-[mediator](mediaor-cqrs)
-
-[axon](axon)
+For a coding application refer to: [mediator](https://github.com/RolandSall/Microservices-Concepts/tree/main/design-patterns/Mediator-CQRS/dotnet-core), [axon](https://github.com/RolandSall/Microservices-Concepts/tree/main/event-driven-microservices/java/templates/cqrs-eventsourcing-axon)
 
 Command-Query Responsibility Separation is a pattern that differentiate between commands and queries.
 
-~~~gfm
+
 ```mermaid
 graph LR
 A[UI/API] -->C{Type}
     C -->|Command| D[Command Model]
     C -->|Query| E[Projections]
 ```
-~~~
 
-Two models are being used [reference ddd section]().
+
+Two [models](https://github.com/RolandSall/Microservices-Concepts/tree/main/software-design/DDD) are being used.
 
 * Command Models focuses on executing tasks expressed in operations containing the needed data
 * Query Models focus on retrieving data.
