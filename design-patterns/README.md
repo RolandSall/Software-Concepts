@@ -30,5 +30,15 @@ The query model should be able to adjust to the different command models that ar
 
 Hence the commands and query are linked by events to catch any modifications.
 
-## Commands Model
+#### Examples
+
+> ```mermaid
+> graph LR
+> A[Product] --> C{Comamnds}
+> C --> |Insert Command| ADD[Add Product] --> ADD-EFFECT[Show Product]
+> C --> |Update Command| UPDATE[Upadte Product] 
+> UPDATE --> UPDATE-EFFECT[Update Shown Product] 
+> ```
+
+For Query examples, the concept is more related to the actual data and how different users have access to this data depending on the bounded context. 
 
