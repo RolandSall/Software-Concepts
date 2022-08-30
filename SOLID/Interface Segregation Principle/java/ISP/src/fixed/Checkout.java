@@ -1,7 +1,6 @@
 package fixed;
 
-public class Checkout implements TokenManager, Payments {
-
+public class Checkout implements TokenManager {
 
     @Override
     public void payByCardDetails() {

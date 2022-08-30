@@ -1,5 +1,5 @@
 package fixed;
 
-public interface TokenManager {
+public interface TokenManager extends Payments{
     void payByToken();
 }
