@@ -17,10 +17,9 @@ public abstract Student{
     public abstract void registerClub();
 
 }
-
 ```
 
-```json
+```java
 public class SeniorStudent extends Student {
     
     public void registerCourse(){
