@@ -42,3 +42,5 @@ Hence the commands and query are linked by events to catch any modifications.
 
 For Query examples, the concept is more related to the actual data and how different users have access to this data depending on the bounded context. 
 
+ 
+
