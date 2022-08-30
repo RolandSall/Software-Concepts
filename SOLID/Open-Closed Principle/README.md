@@ -1,9 +1,6 @@
-# SOLID Principles
+# Open-Closed Principle
 
-SOLID is an acronym for five main principles of Object-Oriented Programming (OOP):
+> The open-closed principle states that software entities should be open for extension, but closed for modification.
 
-* Single responsibility principle
-* Open-closed principle
-*  Liskov substitution principle
-* Interface segregation principle
-* Dependency inversion principle.
+This implies that such entities – classes, functions, and so on – should be created in a way that their core functionalities can be extended to other entities without altering the initial entity's source code.
+
