@@ -31,7 +31,7 @@ If you code is written to an interface, it will work with any new classes implem
 
 To illustrate the following, I will refer to the below image taken from this [book](https://www.amazon.com/Head-First-Design-Patterns-Brain-Friendly/dp/0596007124)
 
-![image-20220908114929035](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20220908114929035.png)
+![image-20220908114929035](https://github.com/RolandSall/Microservices-Concepts/blob/main/design-patterns/Creational%20Pattern/images/img1.PNG)
 
 
 
