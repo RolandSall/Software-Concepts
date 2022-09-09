@@ -1,4 +1,12 @@
-# Factories	
+# Creational Patterns 
+
+## Singleton
+
+<More details navigate to repo>
+
+<Todo add general description>
+
+## Factories
 
 Factories fall under the categories of creational pattern since these involve creating objects. Lets take moment and discuss the `new` keyword.
 
