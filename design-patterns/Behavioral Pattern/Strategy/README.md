@@ -38,17 +38,17 @@ Well If you think about it we decoupled our system. By taking the part that chan
 
 
 
-![image-20220910081230541](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20220910081230541.png)
+![image-20220910081230541](https://github.com/RolandSall/Microservices-Concepts/blob/main/design-patterns/Behavioral%20Pattern/Strategy/images/img1.PNG)
 
 The key is that a duck will now ***delegate*** its flying and quacking behavior, instead of using quacking and flying methods defined in the Duck class or subclass 
 
 
 
-![image-20220910081651190](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20220910081651190.png)
+![image-20220910081651190](https://github.com/RolandSall/Microservices-Concepts/blob/main/design-patterns/Behavioral%20Pattern/Strategy/images/img2.PNG)
 
 
 
-![image-20220910081459380](C:\Users\User\AppData\Roaming\Typora\typora-user-images\image-20220910081459380.png)
+![image-20220910081459380](https://github.com/RolandSall/Microservices-Concepts/blob/main/design-patterns/Behavioral%20Pattern/Strategy/images/img3.PNG)
 
 
 
