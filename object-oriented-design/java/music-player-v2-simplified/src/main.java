@@ -120,6 +120,47 @@ class RepeatBehavior implements IPlaySongBehavior {
     }
 }
 
+abstract class VolumeSystem {
+
+    protected int currentVolume = 0;
+
+    public VolumeSystem() {
+        this.currentVolume = 0;
+    }
+
+    abstract void volumeUp();
+
+    abstract void volumeDown();
+
+
+}
+
+class Speaker extends VolumeSystem {
+
+    private final int MAX_VOLUME = 10;
+
+    public Speaker() {
+        super();
+    }
+
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    @Override
+    public void volumeUp() {
+        if (currentVolume < MAX_VOLUME) {
+            currentVolume++;
+        }
+
+    }
+
+    @Override
+    public void volumeDown() {
+        if (currentVolume > 0)
+            currentVolume--;
+    }
+}
 
 class INoRepeatBehavior implements IPlaySongBehavior {
 
@@ -143,6 +184,8 @@ class MusicPlayer {
     private PlayList playList;
     private List<Song> playingSongs;
 
+    private VolumeSystem volumeSystem;
+
     private Song currentSong;
 
     private Random rand;
@@ -154,8 +197,24 @@ class MusicPlayer {
         this.playList = playList;
         playingSongs = new ArrayList<>(playList.getSongs());
         rand = new Random();
-
         currentSong = playingSongs.get(0);
+        volumeSystem = new Speaker();
+    }
+
+    public void volumeUp(){
+        volumeSystem.volumeUp();
+    }
+
+    public void volumeDown(){
+        volumeSystem.volumeDown();
+    }
+
+    public int getVolume(){
+        return volumeSystem.currentVolume;
+    }
+
+    public void setVolumeSystem(VolumeSystem volumeSystem){
+        this.volumeSystem = volumeSystem;
     }
 
     public void setPlayList(PlayList playList) {
@@ -251,6 +310,10 @@ public class main {
 //        musicPlayer.nextSong();
 //
 //        musicPlayer.shuffle();
+
+        System.out.println( musicPlayer.getVolume());
+        musicPlayer.volumeUp();
+        System.out.println( musicPlayer.getVolume());
 
     }
 
