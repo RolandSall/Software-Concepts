@@ -1,7 +1,6 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.domain.WalletTransaction;
-import com.rolandsall.walletservice.repositories.IWalletTransactionRepository;
+import com.rolandsall.walletservice.enums.domain.WalletTransaction;
 
 import java.util.List;
 

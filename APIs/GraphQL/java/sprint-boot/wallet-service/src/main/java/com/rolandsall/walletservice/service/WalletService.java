@@ -1,15 +1,11 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.domain.Currency;
-import com.rolandsall.walletservice.domain.Wallet;
+import com.rolandsall.walletservice.enums.domain.Wallet;
 import com.rolandsall.walletservice.repositories.ICurrencyRepository;
 import com.rolandsall.walletservice.repositories.IWalletRepository;
 import com.rolandsall.walletservice.repositories.IWalletTransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional

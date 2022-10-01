@@ -1,8 +1,9 @@
 package com.rolandsall.walletservice;
 
-import com.rolandsall.walletservice.domain.Currency;
-import com.rolandsall.walletservice.domain.Wallet;
-import com.rolandsall.walletservice.domain.WalletTransaction;
+import com.rolandsall.walletservice.enums.TransactionType;
+import com.rolandsall.walletservice.enums.domain.Currency;
+import com.rolandsall.walletservice.enums.domain.Wallet;
+import com.rolandsall.walletservice.enums.domain.WalletTransaction;
 import com.rolandsall.walletservice.service.ICurrencyService;
 import com.rolandsall.walletservice.service.IWalletService;
 import com.rolandsall.walletservice.service.IWalletTransactionService;
@@ -41,6 +42,7 @@ public class WalletServiceApplication {
                         .wallet(initialWallet)
                         .amount(55.2)
                         .id(66)
+                        .type(TransactionType.DEBIT)
                         .timeStamp(Long.valueOf(1412))
                         .build();
 
@@ -49,6 +51,7 @@ public class WalletServiceApplication {
                         .wallet(initialWallet)
                         .amount(23.2)
                         .id(67)
+                        .type(TransactionType.DEBIT)
                         .timeStamp(Long.valueOf(14152))
                         .build();
 

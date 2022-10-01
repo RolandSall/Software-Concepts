@@ -1,9 +1,6 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.domain.Currency;
-import com.rolandsall.walletservice.domain.Wallet;
-
-import java.util.List;
+import com.rolandsall.walletservice.enums.domain.Wallet;
 
 public interface IWalletService {
 

@@ -1,4 +1,4 @@
-package com.rolandsall.walletservice.domain;
+package com.rolandsall.walletservice.enums.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

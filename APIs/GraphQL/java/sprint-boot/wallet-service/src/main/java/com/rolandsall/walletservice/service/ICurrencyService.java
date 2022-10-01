@@ -1,7 +1,6 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.domain.Currency;
-import org.springframework.stereotype.Service;
+import com.rolandsall.walletservice.enums.domain.Currency;
 
 import java.util.List;
 
