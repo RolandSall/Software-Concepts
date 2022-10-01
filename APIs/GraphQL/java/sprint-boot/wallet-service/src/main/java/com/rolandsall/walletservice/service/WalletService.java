@@ -39,4 +39,9 @@ public class WalletService implements IWalletService{
     public Wallet findById(int id) {
         return walletRepository.findById(id).orElseThrow(() -> new RuntimeException("Wallet Not Found"));
     }
+
+    @Override
+    public Wallet addWallet(Wallet wallet) {
+        return walletRepository.save(wallet);
+    }
 }

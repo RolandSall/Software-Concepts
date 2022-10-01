@@ -5,6 +5,15 @@ type Query {
     walletById(walletId: Int): Wallet
 }
 
+type Mutation {
+    addWallet(walletDto: AddWalletRequestDTO): Wallet
+}
+
+input AddWalletRequestDTO {
+    balance: Float,
+    currencyCode: String,
+}
+
 type Wallet {
     id: Int,
     balance:Float,

@@ -11,4 +11,6 @@ public interface IWalletService {
     List<Wallet> findAll();
 
     Wallet findById(int id);
+
+    Wallet addWallet(Wallet wallet);
 }
