@@ -7,6 +7,8 @@ import com.rolandsall.walletservice.repositories.IWalletTransactionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class WalletService implements IWalletService{
@@ -26,5 +28,15 @@ public class WalletService implements IWalletService{
     @Override
     public void createWallet(Wallet wallet) {
         walletRepository.save(wallet);
+    }
+
+    @Override
+    public List<Wallet> findAll() {
+        return walletRepository.findAll();
+    }
+
+    @Override
+    public Wallet findById(int id) {
+        return walletRepository.findById(id).orElseThrow(() -> new RuntimeException("Wallet Not Found"));
     }
 }

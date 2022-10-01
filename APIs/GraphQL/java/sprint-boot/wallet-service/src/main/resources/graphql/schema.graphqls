@@ -1,0 +1,29 @@
+type Query {
+    getCurrencies: [Currency],
+    getCurrenciesByCode(code: String): Currency,
+    userWallets: [Wallet],
+    walletById(walletId: Int): Wallet
+}
+
+type Wallet {
+    id: Int,
+    balance:Float,
+    createAt: Float,
+    currency: Currency,
+    walletTransactions: [WalletTransaction]
+}
+
+type Currency {
+    code: String,
+    name: String,
+    salePrice: Float,
+    purchasePrice: Float,
+}
+
+type WalletTransaction {
+    id: Int,
+    timestamp: Float,
+    wallet: Wallet,
+    amount: Float,
+    type: String
+}

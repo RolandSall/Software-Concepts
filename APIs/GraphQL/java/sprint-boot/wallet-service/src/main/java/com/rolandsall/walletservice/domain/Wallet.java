@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 public class Wallet {
     @Id
-
     private int id;
     private double balance;
     private Long createdAt;
