@@ -1,6 +1,6 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.enums.domain.Wallet;
+import com.rolandsall.walletservice.domain.Wallet;
 import com.rolandsall.walletservice.repositories.ICurrencyRepository;
 import com.rolandsall.walletservice.repositories.IWalletRepository;
 import com.rolandsall.walletservice.repositories.IWalletTransactionRepository;

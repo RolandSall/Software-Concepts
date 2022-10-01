@@ -1,6 +1,6 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.enums.domain.Currency;
+import com.rolandsall.walletservice.domain.Currency;
 
 import java.util.List;
 

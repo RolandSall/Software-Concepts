@@ -1,6 +1,6 @@
 package com.rolandsall.walletservice.service;
 
-import com.rolandsall.walletservice.enums.domain.Wallet;
+import com.rolandsall.walletservice.domain.Wallet;
 
 public interface IWalletService {
 

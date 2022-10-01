@@ -1,7 +1,7 @@
 package com.rolandsall.walletservice.service;
 
 
-import com.rolandsall.walletservice.enums.domain.Currency;
+import com.rolandsall.walletservice.domain.Currency;
 import com.rolandsall.walletservice.repositories.ICurrencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
