@@ -16,10 +16,11 @@ import java.util.UUID;
 @Entity
 public class Wallet {
     @Id
-    private UUID id;
+
+    private int id;
     private double balance;
-    private Long CreatedAt;
-    private UUID userId;
+    private Long createdAt;
+    private int userId;
     @ManyToOne
     private Currency currency;
 
