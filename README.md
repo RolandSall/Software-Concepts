@@ -4,7 +4,7 @@ The goal of this repository is to demonstrate software design concepts ranging f
 
 
 
-This repository will be designed into multiple sub-directories that covers a wide variety of subjects that falls under the hat of a good software engineer toolkit.
+This repository will be designed into multiple sub-directories that cover a wide variety of subjects that falls under the hat of a good software engineer toolkit.
 
 
 
@@ -12,17 +12,17 @@ Topics that are being mainly worked on:
 
 * Design Patterns: Both Theoretical and Practical
 * Clean Code Principles & Design: SOLID Principles, Clean Architecture
-* Microservices concepts: Gateways, discovery services and other well-known patterns
+* Microservices concepts: Gateways, discovery services, and other well-known patterns
 
 
 
-These topics are encountered in almost any workplace. This repository aims for the software audience to get a glimpse on how these concepts are necessary for maintain efficiently a working system.
+These topics are encountered in almost any workplace. This repository aims for the software audience to get a glimpse of how these concepts are necessary for maintain efficiently a working system.
 
 
 
-The next topics (if I was to able progress on the latter topics), is to tackle Devops topics. For now try to enjoy the current contents that are constantly being updated. 
+The next topic (if I was to able progress on the latter topics), is to tackle DevOps topics. For now, try to enjoy the current contents that are constantly being updated. 
 
-I will also be working on roadmap to better highlight from which topic you should tackle first.
+I will also be working on a roadmap to better highlight which topic you should tackle first.
 
   
 
