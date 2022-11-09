@@ -30,10 +30,46 @@ services:
       - postgres
     restart: unless-stopped
 
+
+  postgres-fraud:
+    container_name: postgres-fraud
+    image: postgres
+    environment:
+      POSTGRES_USER: rolandsall
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-fraud:/data/postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - postgres-fraud
+    restart: unless-stopped
+
+  pgadmin-fraud:
+    container_name: pgadmin-fraud
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin-fraud:/var/lib/pgadmin
+    ports:
+      - "5051:80"
+    networks:
+      - postgres-fraud
+    restart: unless-stopped
+
+
 networks:
   postgres:
+    driver: bridge
+  postgres-fraud:
     driver: bridge
 
 volumes:
   postgres:
   pgadmin:
+  pgadmin-fraud:
+  postgres-fraud:

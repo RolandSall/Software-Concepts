@@ -1,0 +1,23 @@
+server:
+  port: 8081
+
+
+spring:
+  application:
+    name: fraud
+  datasource:
+    password: 'password'
+    url: jdbc:postgresql://localhost:5433/fraud
+    username: 'rolandsall'
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
