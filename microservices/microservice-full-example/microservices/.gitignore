@@ -1,2 +1,4 @@
 .idea
 microservices.iml
+
+./customer/target
