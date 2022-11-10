@@ -3,8 +3,8 @@ server:
 
 eureka:
   client:
-    allow-redirects: false
     register-with-eureka: false
+    fetch-registry: false
 spring:
   application:
     name: discovery-service
