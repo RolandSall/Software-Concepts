@@ -8,16 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,12 +23,12 @@ class CustomerServiceTest {
     private ICustomerRepository iCustomerRepository;
 
     @Mock
-    private RestTemplate restTemplate;
+    private IHttpHandler iHttpHandler;
     private ICustomerService ICustomerService;
 
     @BeforeEach
     void setUp() {
-        ICustomerService = new CustomerService(iCustomerRepository,restTemplate);
+        ICustomerService = new CustomerService(iCustomerRepository, iHttpHandler);
     }
 
     @Test
@@ -57,8 +53,7 @@ class CustomerServiceTest {
                 .build();
 
 
-       lenient().when(restTemplate.getForObject("http://localhost:8081/api/v1/fraud-check/" + customer.getId(),
-                        FraudResponse.class)).thenReturn(new FraudResponse(true));
+        when(iHttpHandler.getForObject(anyString(), any())).thenReturn(new FraudResponse(false));
 
         // action
         ICustomerService.Register(customer);
@@ -71,7 +66,27 @@ class CustomerServiceTest {
 
         assertThat(captorValue).isEqualTo(customer);
 
+    }
 
+    @Test
+    void Register_throws_IllegalStateException_when_fraud_response() {
+        // arrange
+        Customer customer = Customer.builder()
+                .firstName("Roland")
+                .lastName("Salloum")
+                .email("roland.salloum00@outlook.com")
+                .id(UUID.randomUUID())
+                .build();
+
+
+        when(iHttpHandler.getForObject(anyString(), any())).thenReturn(new FraudResponse(true));
+
+        // assert & action
+        assertThatThrownBy(() -> ICustomerService.Register(customer))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("fraudster");
+
+        verify(iCustomerRepository, never()).save(any());
 
     }
 }

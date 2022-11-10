@@ -5,7 +5,6 @@ import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,12 +13,12 @@ import java.util.UUID;
 public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository iCustomerRepository;
-    private final RestTemplate restTemplate;
+    private final IHttpHandler httpHandler;
 
     @Autowired
-    public CustomerService(ICustomerRepository iCustomerRepository, RestTemplate restTemplate) {
+    public CustomerService(ICustomerRepository iCustomerRepository, IHttpHandler httpHandler) {
         this.iCustomerRepository = iCustomerRepository;
-        this.restTemplate = restTemplate;
+        this.httpHandler = httpHandler;
     }
 
 
@@ -27,17 +26,19 @@ public class CustomerService implements ICustomerService {
     public void Register(Customer customer) {
         customer.setId(UUID.randomUUID());
 
-        iCustomerRepository.saveAndFlush(customer);
 
         // check if fraud
-        FraudResponse response = restTemplate.getForObject(
-                "http://localhost:8081/api/v1/fraud-check/" + customer.getId(),
-                FraudResponse.class
-        );
+        String url = "http://localhost:8081/api/v1/fraud-check/" + customer.getId();
+
+
+        FraudResponse response = (FraudResponse) httpHandler.getForObject(url, FraudResponse.class);
 
         if (response.isFraud()) {
             throw new IllegalStateException("fraudster");
         }
+
+        iCustomerRepository.save(customer);
+
     }
 
     @Override
