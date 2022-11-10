@@ -1,6 +1,5 @@
 package com.rolandsall.customer.services;
 
-import com.rolandsall.customer.api.customer.FraudResponse;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.junit.jupiter.api.BeforeEach;

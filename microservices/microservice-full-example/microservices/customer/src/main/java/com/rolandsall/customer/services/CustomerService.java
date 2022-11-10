@@ -1,6 +1,5 @@
 package com.rolandsall.customer.services;
 
-import com.rolandsall.customer.api.customer.FraudResponse;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +30,7 @@ public class CustomerService implements ICustomerService {
         String url = "http://localhost:8081/api/v1/fraud-check/" + customer.getId();
 
 
+        // does this needs to be mapped?
         FraudResponse response = (FraudResponse) httpHandler.getForObject(url, FraudResponse.class);
 
         if (response.isFraud()) {

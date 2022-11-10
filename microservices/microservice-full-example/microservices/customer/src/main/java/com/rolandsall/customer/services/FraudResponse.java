@@ -1,4 +1,4 @@
-package com.rolandsall.customer.api.customer;
+package com.rolandsall.customer.services;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
