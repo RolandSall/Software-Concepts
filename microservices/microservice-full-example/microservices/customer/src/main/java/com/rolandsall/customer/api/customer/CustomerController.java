@@ -23,9 +23,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    public void Register(@RequestBody CustomerRegistrationRequest request){
+    public ResponseEntity Register(@RequestBody CustomerRegistrationRequest request){
         log.info(String.valueOf(request));
-        iCustomerService.Register(BuildRequestFromRequest(request));
+        try {
+            iCustomerService.Register(BuildRequestFromRequest(request));
+            return ResponseEntity.ok("Created");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping

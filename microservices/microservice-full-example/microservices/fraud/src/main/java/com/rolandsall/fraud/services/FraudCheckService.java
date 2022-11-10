@@ -21,12 +21,14 @@ public class FraudCheckService implements IFraudCheckService{
 
     @Override
     public boolean isFraudCustomer(UUID customerId) {
+        // certain logic to decide if fraud or not
         fraudCheckHistoryRepository.save(FraudCheckHistory.builder()
                         .customerId(customerId)
                         .createdAt(LocalDateTime.now())
                         .id(UUID.randomUUID())
                         .isFraud(false)
                 .build());
+
         return false;
     }
 }
