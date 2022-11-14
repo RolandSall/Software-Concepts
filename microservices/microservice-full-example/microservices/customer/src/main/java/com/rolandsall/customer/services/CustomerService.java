@@ -31,33 +31,41 @@ public class CustomerService implements ICustomerService {
 
 
     @Override
+    public List<Customer> GetUsers() {
+        return iCustomerRepository.findAll();
+    }
+
+    @Override
     public void Register(Customer customer) {
         customer.setId(UUID.randomUUID());
+        checkIfFraud(customer);
+        iCustomerRepository.save(customer);
+        sendNotification(customer);
 
+    }
+
+    private void checkIfFraud(Customer customer) {
         FraudResponse response = fraudClient.CheckIfFraud(customer.getId()).getBody();
 
         if (Objects.requireNonNull(response).isFraud()) {
             throw new IllegalStateException("fraudster");
         }
+    }
 
-        iCustomerRepository.save(customer);
-
-        NotificationRequest request = new NotificationRequest(
-                customer.getId(),
-                customer.getEmail(),
-                String.format("Hi %s, welcome to this channel...", customer.getFirstName()));
-
-
+    private void sendNotification(Customer customer) {
+        NotificationRequest request = buildNotification(customer);
         ResponseEntity notificationResponse = notificationClient.sendNotification(request);
 
         if (Objects.requireNonNull(notificationResponse).getStatusCode().is5xxServerError()) {
             throw new RuntimeException("Email was not sent");
         }
-
     }
 
-    @Override
-    public List<Customer> GetUsers() {
-        return iCustomerRepository.findAll();
+    private static NotificationRequest buildNotification(Customer customer) {
+        return new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to this channel...", customer.getFirstName()));
     }
+
 }
