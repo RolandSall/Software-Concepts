@@ -2,6 +2,7 @@ package com.rolandsall.customer.services;
 
 import com.rolandsall.client.fraud.FraudClient;
 import com.rolandsall.client.fraud.FraudResponse;
+import com.rolandsall.client.notification.NotificationClient;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.not;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -27,11 +29,13 @@ class CustomerServiceTest {
 
     @Mock
     private FraudClient fraudClient;
+    @Mock
+    private NotificationClient notificationClient;
     private ICustomerService ICustomerService;
 
     @BeforeEach
     void setUp() {
-        ICustomerService = new CustomerService(iCustomerRepository, fraudClient);
+        ICustomerService = new CustomerService(iCustomerRepository, fraudClient,notificationClient);
     }
 
     @Test
@@ -58,6 +62,9 @@ class CustomerServiceTest {
 
         when(fraudClient.CheckIfFraud(any()))
                 .thenReturn(new ResponseEntity<>(new FraudResponse(false), HttpStatus.OK));
+
+
+        when(notificationClient.sendNotification(any())).thenReturn(new ResponseEntity<>(HttpStatus.OK));
 
 
         // action
@@ -93,6 +100,32 @@ class CustomerServiceTest {
                 .hasMessageContaining("fraudster");
 
         verify(iCustomerRepository, never()).save(any());
+
+    }
+
+    @Test
+    void Register_throws_RuntimeException_when_email_is_not_sent() {
+        // arrange
+        Customer customer = Customer.builder()
+                .firstName("Roland")
+                .lastName("Salloum")
+                .email("roland.salloum00@outlook.com")
+                .id(UUID.randomUUID())
+                .build();
+
+
+        when(fraudClient.CheckIfFraud(any()))
+                .thenReturn(new ResponseEntity<>(new FraudResponse(false), HttpStatus.OK));
+
+
+        when(notificationClient.sendNotification(any())).thenReturn(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        // assert & action
+        assertThatThrownBy(() -> ICustomerService.Register(customer))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("Email was not sent");
+
+        verify(iCustomerRepository).save(any());
 
     }
 }
