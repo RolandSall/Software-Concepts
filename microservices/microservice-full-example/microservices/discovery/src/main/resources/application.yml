@@ -8,3 +8,5 @@ eureka:
 spring:
   application:
     name: discovery-service
+  zipkin:
+    base-url: http://localhost:9411
