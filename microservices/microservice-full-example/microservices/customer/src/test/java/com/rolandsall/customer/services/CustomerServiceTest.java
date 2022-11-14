@@ -1,5 +1,7 @@
 package com.rolandsall.customer.services;
 
+import com.rolandsall.client.fraud.FraudClient;
+import com.rolandsall.client.fraud.FraudResponse;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
 
@@ -22,12 +26,12 @@ class CustomerServiceTest {
     private ICustomerRepository iCustomerRepository;
 
     @Mock
-    private IHttpHandler iHttpHandler;
+    private FraudClient fraudClient;
     private ICustomerService ICustomerService;
 
     @BeforeEach
     void setUp() {
-        ICustomerService = new CustomerService(iCustomerRepository, iHttpHandler);
+        ICustomerService = new CustomerService(iCustomerRepository, fraudClient);
     }
 
     @Test
@@ -52,7 +56,8 @@ class CustomerServiceTest {
                 .build();
 
 
-        when(iHttpHandler.getForObject(anyString(), any())).thenReturn(new FraudResponse(false));
+        when(fraudClient.CheckIfFraud(any()))
+                .thenReturn(new ResponseEntity<>(new FraudResponse(false), HttpStatus.OK));
 
         // action
         ICustomerService.Register(customer);
@@ -78,7 +83,8 @@ class CustomerServiceTest {
                 .build();
 
 
-        when(iHttpHandler.getForObject(anyString(), any())).thenReturn(new FraudResponse(true));
+        when(fraudClient.CheckIfFraud(any()))
+                .thenReturn(new ResponseEntity<>(new FraudResponse(true), HttpStatus.OK));
 
         // assert & action
         assertThatThrownBy(() -> ICustomerService.Register(customer))

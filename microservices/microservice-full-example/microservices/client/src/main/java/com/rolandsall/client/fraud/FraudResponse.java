@@ -1,4 +1,4 @@
-package com.rolandsall.fraud.api;
+package com.rolandsall.client.fraud;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

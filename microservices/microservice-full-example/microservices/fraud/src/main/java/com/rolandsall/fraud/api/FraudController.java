@@ -1,6 +1,5 @@
 package com.rolandsall.fraud.api;
-
-
+import com.rolandsall.client.fraud.FraudResponse;
 import com.rolandsall.fraud.services.IFraudCheckService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,23 +1,27 @@
 package com.rolandsall.customer.services;
 
+import com.rolandsall.client.fraud.FraudClient;
+import com.rolandsall.client.fraud.FraudResponse;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
 public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository iCustomerRepository;
-    private final IHttpHandler<FraudResponse> httpHandler;
+
+    private final FraudClient fraudClient;
 
     @Autowired
-    public CustomerService(ICustomerRepository iCustomerRepository, IHttpHandler<FraudResponse> httpHandler) {
+    public CustomerService(ICustomerRepository iCustomerRepository, FraudClient fraudClient) {
         this.iCustomerRepository = iCustomerRepository;
-        this.httpHandler = httpHandler;
+        this.fraudClient = fraudClient;
     }
 
 
@@ -25,15 +29,9 @@ public class CustomerService implements ICustomerService {
     public void Register(Customer customer) {
         customer.setId(UUID.randomUUID());
 
+        FraudResponse response = fraudClient.CheckIfFraud(customer.getId()).getBody();
 
-        // check if fraud
-        String url = "http://FRAUD/api/v1/fraud-check/" + customer.getId();
-
-
-        // does this needs to be mapped?
-        FraudResponse response = (FraudResponse) httpHandler.getForObject(url, FraudResponse.class);
-
-        if (response.isFraud()) {
+        if (Objects.requireNonNull(response).isFraud()) {
             throw new IllegalStateException("fraudster");
         }
 
