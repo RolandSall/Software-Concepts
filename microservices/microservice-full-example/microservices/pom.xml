@@ -13,6 +13,7 @@
         <module>fraud</module>
         <module>discovery</module>
         <module>client</module>
+        <module>notification</module>
     </modules>
 
     <name>microservices</name>

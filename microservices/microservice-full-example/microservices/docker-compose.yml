@@ -61,11 +61,43 @@ services:
       - postgres-fraud
     restart: unless-stopped
 
+  postgres-notification:
+    container_name: postgres-notification
+    image: postgres
+    environment:
+      POSTGRES_USER: rolandsall
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-notification:/data/postgres
+    ports:
+      - "5434:5432"
+    networks:
+      - postgres-notification
+    restart: unless-stopped
+
+  pgadmin-notification:
+    container_name: pgadmin-notification
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin-notification:/var/lib/pgadmin
+    ports:
+      - "5052:80"
+    networks:
+      - postgres-notification
+    restart: unless-stopped
+
 
 networks:
   postgres:
     driver: bridge
   postgres-fraud:
+    driver: bridge
+  postgres-notification:
     driver: bridge
 
 volumes:
@@ -73,3 +105,5 @@ volumes:
   pgadmin:
   pgadmin-fraud:
   postgres-fraud:
+  pgadmin-notification:
+  postgres-notification:

@@ -59,6 +59,7 @@ class CustomerServiceTest {
         when(fraudClient.CheckIfFraud(any()))
                 .thenReturn(new ResponseEntity<>(new FraudResponse(false), HttpStatus.OK));
 
+
         // action
         ICustomerService.Register(customer);
 
