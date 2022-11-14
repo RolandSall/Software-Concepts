@@ -27,7 +27,7 @@ public class CustomerService implements ICustomerService {
 
 
         // check if fraud
-        String url = "http://localhost:8081/api/v1/fraud-check/" + customer.getId();
+        String url = "http://FRAUD/api/v1/fraud-check/" + customer.getId();
 
 
         // does this needs to be mapped?
