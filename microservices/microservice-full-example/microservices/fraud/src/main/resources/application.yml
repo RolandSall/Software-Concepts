@@ -11,7 +11,7 @@ spring:
     username: 'rolandsall'
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -21,3 +21,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:8761/eureka'

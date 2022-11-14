@@ -12,10 +12,10 @@ import java.util.UUID;
 public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository iCustomerRepository;
-    private final IHttpHandler httpHandler;
+    private final IHttpHandler<FraudResponse> httpHandler;
 
     @Autowired
-    public CustomerService(ICustomerRepository iCustomerRepository, IHttpHandler httpHandler) {
+    public CustomerService(ICustomerRepository iCustomerRepository, IHttpHandler<FraudResponse> httpHandler) {
         this.iCustomerRepository = iCustomerRepository;
         this.httpHandler = httpHandler;
     }
