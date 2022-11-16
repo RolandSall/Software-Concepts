@@ -1,15 +1,10 @@
 package com.rolandsall.customer.services;
 
-import com.rolandsall.amqp.RabbitMQMessageProducer;
 import com.rolandsall.client.fraud.FraudClient;
 import com.rolandsall.client.fraud.FraudResponse;
-import com.rolandsall.client.notification.NotificationClient;
-import com.rolandsall.client.notification.NotificationRequest;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,16 +16,16 @@ public class CustomerService implements ICustomerService {
 
     private final ICustomerRepository iCustomerRepository;
 
-    private final FraudClient fraudClient;
+    private final IFraudHandler fraudHandler;
     //private final NotificationClient notificationClient;
 
-    private final RabbitMQMessageProducer rabbitMQMessageProducer;
+    private final INotificationHandler notificationHandler;
 
     @Autowired
-    public CustomerService(ICustomerRepository iCustomerRepository, FraudClient fraudClient, RabbitMQMessageProducer rabbitMQMessageProducer) {
+    public CustomerService(ICustomerRepository iCustomerRepository, IFraudHandler fraudHandler, INotificationHandler notificationHandler) {
         this.iCustomerRepository = iCustomerRepository;
-        this.fraudClient = fraudClient;
-        this.rabbitMQMessageProducer = rabbitMQMessageProducer;
+        this.fraudHandler = fraudHandler;
+        this.notificationHandler = notificationHandler;
     }
 
 
@@ -42,39 +37,9 @@ public class CustomerService implements ICustomerService {
     @Override
     public void Register(Customer customer) {
         customer.setId(UUID.randomUUID());
-        checkIfFraud(customer);
-        iCustomerRepository.save(customer);
-        sendNotification(customer);
-
-    }
-
-    private void checkIfFraud(Customer customer) {
-        FraudResponse response = fraudClient.CheckIfFraud(customer.getId()).getBody();
-
-        if (Objects.requireNonNull(response).isFraud()) {
-            throw new IllegalStateException("fraudster");
+        if (!fraudHandler.checkIfFraud(customer)) {
+            iCustomerRepository.save(customer);
+            notificationHandler.publish(customer);
         }
     }
-
-    private void sendNotification(Customer customer) {
-        NotificationRequest request = buildNotification(customer);
-//        ResponseEntity notificationResponse = notificationClient.sendNotification(request);
-//
-//        if (Objects.requireNonNull(notificationResponse).getStatusCode().is5xxServerError()) {
-//            throw new RuntimeException("Email was not sent");
-//        }
-        rabbitMQMessageProducer.publish(
-                request,
-                "internal.exchange",
-                "internal.notification.routing-key"
-        );
-    }
-
-    private static NotificationRequest buildNotification(Customer customer) {
-        return new NotificationRequest(
-                customer.getId(),
-                customer.getEmail(),
-                String.format("Hi %s, welcome to this channel...", customer.getFirstName()));
-    }
-
 }

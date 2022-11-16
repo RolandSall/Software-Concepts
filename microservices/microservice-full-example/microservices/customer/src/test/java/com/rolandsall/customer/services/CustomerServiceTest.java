@@ -1,8 +1,10 @@
 package com.rolandsall.customer.services;
 
+import com.rolandsall.amqp.RabbitMQMessageProducer;
 import com.rolandsall.client.fraud.FraudClient;
 import com.rolandsall.client.fraud.FraudResponse;
 import com.rolandsall.client.notification.NotificationClient;
+import com.rolandsall.client.notification.NotificationRequest;
 import com.rolandsall.customer.models.Customer;
 import com.rolandsall.customer.respositories.customer.ICustomerRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,14 +29,14 @@ class CustomerServiceTest {
     private ICustomerRepository iCustomerRepository;
 
     @Mock
-    private FraudClient fraudClient;
+    private IFraudHandler fraudHandler;
     @Mock
-    private NotificationClient notificationClient;
+    private INotificationHandler notificationHandler;
     private ICustomerService ICustomerService;
 
     @BeforeEach
     void setUp() {
-        ICustomerService = new CustomerService(iCustomerRepository, fraudClient, rabbitMQMessageProducer);
+        ICustomerService = new CustomerService(iCustomerRepository, fraudHandler, notificationHandler);
     }
 
     @Test
@@ -49,22 +51,16 @@ class CustomerServiceTest {
     }
 
     @Test
-    void Register_calls_dao_save_with_correct_parameters() {
+    void Register_calls_dao_save_with_correct_parameters_when_fraud_is_false() {
         // arrange
         Customer customer = Customer.builder()
                 .firstName("Roland")
                 .lastName("Salloum")
                 .email("roland.salloum00@outlook.com")
-                .id(UUID.randomUUID())
                 .build();
 
 
-        when(fraudClient.CheckIfFraud(any()))
-                .thenReturn(new ResponseEntity<>(new FraudResponse(false), HttpStatus.OK));
-
-
-        when(notificationClient.sendNotification(any())).thenReturn(new ResponseEntity<>(HttpStatus.OK));
-
+        when(fraudHandler.checkIfFraud(customer)).thenReturn(false);
 
         // action
         ICustomerService.Register(customer);
@@ -74,57 +70,33 @@ class CustomerServiceTest {
         ArgumentCaptor<Customer> studentArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
         verify(iCustomerRepository).save(studentArgumentCaptor.capture());
         Customer captorValue = studentArgumentCaptor.getValue();
-
         assertThat(captorValue).isEqualTo(customer);
 
+        verify(notificationHandler).publish(customer);
+
     }
 
     @Test
-    void Register_throws_IllegalStateException_when_fraud_response() {
+    void do_nothing_when_fraud_is_true() {
         // arrange
         Customer customer = Customer.builder()
                 .firstName("Roland")
                 .lastName("Salloum")
                 .email("roland.salloum00@outlook.com")
-                .id(UUID.randomUUID())
                 .build();
 
 
-        when(fraudClient.CheckIfFraud(any()))
-                .thenReturn(new ResponseEntity<>(new FraudResponse(true), HttpStatus.OK));
+        when(fraudHandler.checkIfFraud(customer)).thenReturn(true);
 
-        // assert & action
-        assertThatThrownBy(() -> ICustomerService.Register(customer))
-                .isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("fraudster");
-
-        verify(iCustomerRepository, never()).save(any());
-
-    }
-
-    @Test
-    void Register_throws_RuntimeException_when_email_is_not_sent() {
-        // arrange
-        Customer customer = Customer.builder()
-                .firstName("Roland")
-                .lastName("Salloum")
-                .email("roland.salloum00@outlook.com")
-                .id(UUID.randomUUID())
-                .build();
+        // action
+        ICustomerService.Register(customer);
 
 
-        when(fraudClient.CheckIfFraud(any()))
-                .thenReturn(new ResponseEntity<>(new FraudResponse(false), HttpStatus.OK));
-
-
-        when(notificationClient.sendNotification(any())).thenReturn(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-
-        // assert & action
-        assertThatThrownBy(() -> ICustomerService.Register(customer))
-                .isInstanceOf(RuntimeException.class)
-                .hasMessageContaining("Email was not sent");
-
-        verify(iCustomerRepository).save(any());
+        // assert
+        verify(iCustomerRepository, never()).save(customer);
+        verify(notificationHandler, never()).publish(customer);
 
     }
+
+
 }
