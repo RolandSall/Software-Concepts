@@ -34,7 +34,7 @@ class CustomerServiceTest {
 
     @BeforeEach
     void setUp() {
-        ICustomerService = new CustomerService(iCustomerRepository, fraudClient,notificationClient);
+        ICustomerService = new CustomerService(iCustomerRepository, fraudClient, rabbitMQMessageProducer);
     }
 
     @Test
