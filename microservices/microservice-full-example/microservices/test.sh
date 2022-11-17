@@ -1,0 +1,1 @@
+curl -X POST "http://localhost:8083/api/v1/customers" -H "accept: */*" -H "Content-Type: application/json" -d "{ \"email\": \"string\", \"firstName\": \"string\", \"lastName\": \"string\"}"

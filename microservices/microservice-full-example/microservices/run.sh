@@ -1,4 +1,4 @@
-VERSION=1.0-SNAPSHOT
+VERSION=latest
 
 mvn clean install
 

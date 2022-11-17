@@ -1,13 +1,13 @@
 server:
-  port: 8082
+  port: 8081
 
 
 spring:
   application:
-    name: notification
+    name: fraud
   datasource:
     password: 'password'
-    url: jdbc:postgresql://localhost:5434/notification
+    url: jdbc:postgresql://postgres-fraud:5432/fraud
     username: 'rolandsall'
   jpa:
     hibernate:
@@ -22,20 +22,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   zipkin:
-    base-url: http://localhost:9411
-  rabbitmq:
-    addresses: localhost:5672
+    base-url: http://zipkin:9411
 
 eureka:
   client:
     service-url:
-      defaultZone: 'http://localhost:8761/eureka'
-
-
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queues:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key
+      defaultZone: 'http://eureka-service:8761/eureka'

@@ -6,7 +6,7 @@ spring:
     name: customer
   datasource:
     password: 'password'
-    url: jdbc:postgresql://localhost:5432/customer
+    url: jdbc:postgresql://postgres:5432/customer
     username: 'rolandsall'
   jpa:
     hibernate:
@@ -20,11 +20,11 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://zipkin:9411
   rabbitmq:
-    addresses: localhost:5672
+    addresses: rabbitmq:5672
 
 eureka:
   client:
     service-url:
-      defaultZone: 'http://localhost:8761/eureka'
+      defaultZone: 'http://eureka-service:8761/eureka'
