@@ -119,6 +119,10 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
       - zipkin
+    healthcheck:
+      test: curl --fail -s http://localhost:8761/actuator/health || exit 1
+      interval: 1m30s
+      timeout: 10s
 
   gateway-service:
     image: rolandsall24/gateway:latest
