@@ -16,11 +16,11 @@ Topics that are being mainly worked on:
 
 
 
-These topics are encountered in almost any workplace. This repository aims for the software audience to get a glimpse of how these concepts are necessary for maintain efficiently a working system.
+These topics are encountered in almost any workplace. This repository aims for the software engineers audience to get a glimpse of how these concepts are necessary for maintain efficiently a working system.
 
 
 
-The next topic (if I was to able progress on the latter topics), is to tackle DevOps topics. For now, try to enjoy the current contents that are constantly being updated. 
+Next topic (if I was to able progress on the latter topics): Devops. For now, try to enjoy the current contents that are constantly being updated. 
 
 I will also be working on a roadmap to better highlight which topic you should tackle first.
 
