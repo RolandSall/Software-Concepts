@@ -18,4 +18,11 @@
     </properties>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>com.rolandsall</groupId>
+            <artifactId>order-application-service</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
