@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>order-domain</artifactId>
+        <artifactId>common</artifactId>
         <groupId>com.rolandsall</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>order-domain-core</artifactId>
+    <artifactId>common-domain</artifactId>
     <packaging>jar</packaging>
 
-    <name>order-domain-core</name>
-    <url>http://maven.apache.org</url>
+    <name>common-domain</name>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,8 +19,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.rolandsall</groupId>
-            <artifactId>common-domain</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
