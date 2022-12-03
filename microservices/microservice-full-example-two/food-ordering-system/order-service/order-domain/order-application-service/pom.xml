@@ -11,7 +11,6 @@
     <packaging>jar</packaging>
 
     <name>order-application-service</name>
-    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,6 +20,18 @@
         <dependency>
             <groupId>com.rolandsall</groupId>
             <artifactId>order-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.rolandsall</groupId>
+            <artifactId>common-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
         </dependency>
     </dependencies>
 </project>
