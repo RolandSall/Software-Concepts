@@ -7,6 +7,7 @@ import com.rolandsall.food.ordering.system.domain.valueobject.RestaurantId;
 import com.rolandsall.order.service.domain.dto.create.CreateOrderCommand;
 import com.rolandsall.order.service.domain.dto.create.CreateOrderResponse;
 import com.rolandsall.order.service.domain.dto.create.OrderAddress;
+import com.rolandsall.order.service.domain.dto.track.TrackOrderResponse;
 import com.rolandsall.order.service.domain.entity.Order;
 import com.rolandsall.order.service.domain.entity.OrderItem;
 import com.rolandsall.order.service.domain.entity.Product;
@@ -56,6 +57,14 @@ public class OrderDataMapper {
        return CreateOrderResponse.builder()
                .orderTrackingId(order.getTrackingId().getValue())
                .orderStatus(order.getOrderStatus())
+               .build();
+    }
+
+    public TrackOrderResponse orderToTrackOrderResponse(Order order){
+       return TrackOrderResponse.builder()
+               .orderTrackingId(order.getTrackingId().getValue())
+               .orderStatus(order.getOrderStatus())
+               .failureMessages(order.getFailureMessages())
                .build();
     }
 

@@ -2,7 +2,7 @@ package com.rolandsall.order.service.domain.ports.input.message.listener.restaur
 
 import com.rolandsall.order.service.domain.dto.message.RestaurantApprovalResponse;
 
-public interface RestaurantApprovalResponseMessageListener {
+public interface IRestaurantApprovalResponseMessageListener {
 
     void orderApproved(RestaurantApprovalResponse restaurantApprovalResponse);
 
