@@ -53,10 +53,11 @@ public class OrderDataMapper {
                        .build()).collect(Collectors.toList());
     }
 
-    public CreateOrderResponse orderToCreatOrderResponse(Order order){
+    public CreateOrderResponse orderToCreatOrderResponse(Order order, String message){
        return CreateOrderResponse.builder()
                .orderTrackingId(order.getTrackingId().getValue())
                .orderStatus(order.getOrderStatus())
+               .message(message)
                .build();
     }
 
