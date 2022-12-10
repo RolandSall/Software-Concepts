@@ -1,7 +1,7 @@
 # Descriptions:
 
 The following directory will contains hyperlinks for articles that will be published for different software topics. Example
-
+``` bash
 articles
    |
    |
@@ -20,6 +20,6 @@ articles
    .
    .
    |____ design_patterns
-   
-   
+ 
+ ```
  
